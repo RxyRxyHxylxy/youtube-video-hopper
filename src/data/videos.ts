@@ -7,6 +7,7 @@ export interface Video {
   views: string;
   category: string;
   featured: boolean;
+  userAdded?: boolean;
 }
 
 export const videos: Video[] = [
@@ -85,3 +86,12 @@ export const videos: Video[] = [
 ];
 
 export const categories = Array.from(new Set(videos.map(video => video.category)));
+
+// Function to extract YouTube video ID from various URL formats
+export const extractYoutubeVideoId = (url: string): string | null => {
+  // Regular expressions to match various YouTube URL formats
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+  const match = url.match(regExp);
+  
+  return (match && match[2].length === 11) ? match[2] : null;
+};
